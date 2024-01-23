@@ -1,1 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comfy.js Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+    <style>
+        /* Include Eazy Chat Font */
+        @font-face {
+            font-family: 'EazyChat';
+            src: url('Eazy%20Chat.ttf') format('truetype'); /* Adjust the path if needed */
+            font-weight: normal;
+            font-style: normal;
+        }
 
+        html,body {
+            margin: 0;
+            font-family: 'EazyChat', monospace; /* Use the custom font */
+            color: hsl(197, 62%, 32%);
+        }
+
+        #chat {
+            width: 400px;
+            height: 350px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        #chat::-webkit-scrollbar {
+            display: none;
+        }
+
+        #chat ul {
+            list-style-type: none;
+            list-style-position: outside;
+        }
+
+        #chat li {
+            background-color: hsl(196, 58%, 93%);
+            box-sizing: border-box;
+            padding: 1rem 10px;
+            margin-bottom: 10px;
+            border: 4px solid;
+        }
+
+        #chat blockquote {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Your HTML content here -->
+
+    <ul id="chat">
+        <!-- Your chat container (ul element) goes here -->
+    </ul>
+
+    <script>
+        // Your JavaScript code using comfy.js will go here
+        var chat = document.querySelector("#chat>ul");
+
+        ComfyJS.onChat = (user, message, flags, self, extra) => {
+            var newMessage = document.createElement("li");
+            var text = document.createElement("blockquote");
+
+            newMessage.innerText = user;
+            text.innerText = message;
+
+            newMessage.append(text);
+            chat.append(newMessage);
+        }
+    </script>
+
+    <script>
+        ComfyJS.onChat = (user, message, flags, self, extra) => {
+            console.log(user, message);
+        }
+
+        ComfyJS.Init("Silverdropss");
+    </script>
